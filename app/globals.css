@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+/* Tokens from doc/DESIGN.md — serif analytics on warm paper. */
+@theme inline {
+  --font-serif: var(--font-newsreader), "Signifier", ui-serif, Georgia, serif;
+  --font-sans: var(--font-inter), "Sohne", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+@theme {
+  /* Colors */
+  --color-ink-black: #17191c;
+  --color-paper-white: #ffffff;
+  --color-mist-gray: #f2f2f3;
+  --color-fog-white: #fafafb;
+  --color-slate-gray: #777b86;
+  --color-ash-gray: #979799;
+  --color-smoke-gray: #a3a6af;
+  --color-blush-peach: #fbe1d1;
+  --color-sienna-brown: #5d2a1a;
+  --color-hairline: #ececec;
+
+  /* Type scale */
+  --text-meta: 14px;
+  --text-meta--line-height: 1.43;
+  --text-caption: 15px;
+  --text-caption--line-height: 1.5;
+  --text-body: 17px;
+  --text-body--line-height: 1.35;
+  --text-body-lg: 20px;
+  --text-body-lg--line-height: 1.35;
+  --text-subheading: 22px;
+  --text-subheading--line-height: 1.5;
+  --text-heading-sm: 26px;
+  --text-heading-sm--line-height: 1.18;
+  --text-heading-sm--letter-spacing: -0.23px;
+  --text-heading: 44px;
+  --text-heading--line-height: 1.3;
+  --text-heading--letter-spacing: -0.66px;
+  --text-heading-lg: 64px;
+  --text-heading-lg--line-height: 1.3;
+  --text-heading-lg--letter-spacing: -0.96px;
+  --text-display: 90px;
+  --text-display--line-height: 1.3;
+  --text-display--letter-spacing: -2.25px;
+
+  /* Half-step weights */
+  --font-weight-w430: 430;
+  --font-weight-w450: 450;
+  --font-weight-w480: 480;
+
+  /* Radii */
+  --radius-card: 24px;
+  --radius-elevated: 20px;
+  --radius-input: 16px;
+  --radius-image: 12px;
+
+  /* Elevation — only floating product artifacts earn a shadow */
+  --shadow-subtle: oklab(0 0 0 / 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.08) 0px 4px 24px 0px;
+  --shadow-overlay: oklab(0 0 0 / 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 8px 40px 0px;
+  --shadow-float:
+    rgba(4, 23, 43, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.1) 0px 8px 10px -6px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper-white);
+    color: var(--color-ink-black);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.35;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* clip, not hidden: hidden would turn body into a scroll container and break the pinned scenes */
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background-color: var(--color-blush-peach);
+    color: var(--color-sienna-brown);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ink-black);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* 1200px page container with comfortable gutters. */
+@utility shell {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1280px;
+  padding-inline: 20px;
+
+  @media (width >= 48rem) {
+    padding-inline: 40px;
+  }
+}
+
+/* Signifier-style display: weight 400 at every size, tracking tightens as it grows. */
+@utility display {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  /* --display-size lets a section trim the display size to fit its composition */
+  font-size: var(--display-size, clamp(44px, 6.6vw, 90px));
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+  font-optical-sizing: auto;
+}
+
+@utility headline {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(36px, 4.6vw, 64px);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+@utility headline-sm {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(30px, 3.4vw, 44px);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+/* Ghost-like typographic tag — groups without visual weight. */
+@utility tag {
+  font-size: 14px;
+  line-height: 1.43;
+  font-weight: 400;
+  color: var(--color-ash-gray);
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
