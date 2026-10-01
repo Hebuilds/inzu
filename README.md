@@ -13,7 +13,6 @@ npm run lint
 
 | Path | What |
 | --- | --- |
-| `doc/DESIGN.md` | The style reference this page follows (tokens, components, do's and don'ts) |
 | `app/globals.css` | Design tokens as a Tailwind `@theme`, plus the `display` / `headline` / `shell` utilities |
 | `lib/content.ts` | All copy, links and sample listings. `APP_URL` points at the live app |
 | `components/sections/*` | One file per page section, in the order used by `app/page.tsx` |
